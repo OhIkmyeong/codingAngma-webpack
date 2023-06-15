@@ -1,0 +1,55 @@
+이번엔 스타일 css....
+
+--------------------------
+npm i -D style-loader css-loader
+--------------------------
+css loader은 css파일을 읽어주고 style loader는 그 css파일을 읽어서 스타일 태그로 만들어서 head 내부에 넣어주는 애임
+
+그리고 또 webpack.config.js 수정...
+
+module : {
+    rules : [
+        {
+            test : /\.css$/,
+            use : ['style-loader', 'css-loader']
+        }
+    ]
+}, //css-loader style-loader 관련
+
+! 저 use에 들어가는 배열은 뒤에서부터 적용된다네 ㅎㅎ
+
+그 다음 index.js에서 css파일 import 하기..
+
+===================================
+
+위에까지는 external한 방식이었구 
+css파일을 별도로 만들어서 가져오는 형태도 해보자고
+
+-----------------
+npm i -D mini-css-extract-plugin
+-----------------
+
+webpack.config.js가서 또 수정~
+
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+plugins 배열 에 추가
+new MiniCssExtractPlugin({
+    filename : "common.css"
+})
+
+그리고 이렇게 하는 경우 module도 수정 
+
+module : {
+    rules : [
+        {
+            test : /\.css$/,
+            // use : ['style-loader', 'css-loader'], //micssextract 쓰지 않는 경우
+            use : [MiniCssExtractPlugin.loader, 'css-loader'], 
+        }
+    ]
+}, //css-loader style-loader 관련
+
+이런식으로 해주면
+아까는 <style></style>식으로 index.js에서 import 한걸 여러개 삽입하는데
+욜케하면 <link>식으로 하나의 파일로 압축해서 넣어주는거임.
