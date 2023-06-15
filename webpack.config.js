@@ -33,7 +33,6 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename : "subpage.html",
             chunks : ["subpage"],
-            template : "./subpage.html",
         }),
 
         /* 서브페이지(2) */
@@ -53,8 +52,8 @@ module.exports = {
         rules : [
             {
                 test : /\.css$/,
-                // use : ['style-loader', 'css-loader'], //MiniCssExtractPlugin 쓰지 않는 경우 //서브페이지 여러개일땐 이게 나을수도
-                use : [MiniCssExtractPlugin.loader, 'css-loader'], 
+                use : ['style-loader', 'css-loader'], //MiniCssExtractPlugin 쓰지 않는 경우 //서브페이지 여러개일땐 이게 나을수도
+                // use : [MiniCssExtractPlugin.loader, 'css-loader'], //<link>이런식으로 우아하게 처리할 경우 
             },
             {
                 test : /\.png$/,
