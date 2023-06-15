@@ -23,3 +23,11 @@ const users = [
 ];
 
 document.body.appendChild(List({userList : users}))
+
+const hrefs = ["subpage","subpage2"];
+hrefs.forEach(link =>{
+    const $a = document.createElement('A');
+    $a.textContent = link;
+    $a.setAttribute('href',`./${link}`);
+    document.body.appendChild($a);
+});
